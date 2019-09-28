@@ -2,7 +2,8 @@
 Ex2.1
 En executant "objdump -x teste" après la compilation "gcc -o teste teste.c",
 on peut voir les "sections" comme en dessous, alors, l'ordre de stockage est
-text, rodata, data, bss, tas et pile.
+text, rodata, data, bss, tas et pile (les deux dernières sont grâce à
+l'execution du code).
 
 Sections:
 Idx Name          Size      VMA               LMA               File off  Algn
