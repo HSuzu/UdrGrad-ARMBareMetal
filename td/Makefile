@@ -15,8 +15,8 @@ DEP := $(subst .c,.d,$(SOURCES))
 $(EXE): $(OBJ)
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
-runJLink:
-	JLinkGDBServer -device STM32L475VG -endian little -if SWD -speed auto -ir -LocalhostOnly	
+startgdbserver:
+	JLinkGDBServer -device STM32L475VG -endian little -if SWD -speed auto -ir -LocalhostOnly
 
 clean:
 	rm -f $(EXE) $(OBJ) $(DEP)
