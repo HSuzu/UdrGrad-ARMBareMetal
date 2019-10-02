@@ -11,3 +11,6 @@ _start:
 	mov r0, 0
 	bl	init_bss
 	bl	main
+
+_exit:
+	b	_exit

@@ -1,5 +1,7 @@
 #include <stdint.h>
 
+int bss_variable[10];
+
 int fibo(int n) {
   if(n <= 1)
     return 1;
@@ -8,5 +10,8 @@ int fibo(int n) {
 }
 
 int main() {
-  return fibo(8);
+	fibo(8);
+
+	while(1);
+	return 0;
 }
