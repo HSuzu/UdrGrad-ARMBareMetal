@@ -2,24 +2,6 @@ target ext :2331
 mon endian little
 mon halt
 
-define flash
-  dont-repeat
-  mon reset
-  set *0x40022008=0x45670123
-  set *0x40022008=0xCDEF89AB
-  set *0x40022014=0x40010004
-  shell sleep 1
-  set *0x40022010=0x000000A0
-  load
-  set *0x40022008=0x45670123
-  set *0x40022008=0xCDEF89AB
-  set *0x40022014=0x40000001
-  load
-  set *0x40022010=0x000000A0
-  load
-  set $sp=0x10008000
-end
-
 # interface with asm, regs and cmd windows
 define split
   layout split
@@ -36,6 +18,23 @@ define ss
   focus cmd
 end
 
+define flash
+  dont-repeat
+  mon reset
+  set *0x40022008=0x45670123
+  set *0x40022008=0xCDEF89AB
+  set *0x40022014=0x40010004
+  shell sleep 1
+  set *0x40022010=0x000000A0
+  load
+  set *0x40022008=0x45670123
+  set *0x40022008=0xCDEF89AB
+  set *0x40022014=0x40000001
+  load
+  set *0x40022010=0x000000A0
+  load
+end
+
 define romflash
   set *0x40022008=0x45670123
   set *0x40022008=0xCDEF89AB
@@ -45,7 +44,7 @@ end
 define romerase
   set *0x40022008=0x45670123
   set *0x40022008=0xCDEF89AB
-  set * 0x40022014=0x40010004
+  set *0x40022014=0x40010004
 end
 
 # Usefull function when the processor is in hardfault to see
@@ -53,7 +52,7 @@ end
 define armex
   printf "EXEC_RETURN (LR):\n",
   info registers $lr
-    if ($lr & (0x4 == 0x4))
+    if ($lr & 0x4)
       printf "Uses MSP 0x%x return.\n", $MSP
       set $armex_base = $MSP
     else
