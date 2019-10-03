@@ -7,7 +7,7 @@ MEMORY
 		sram2 (w)  : ORIGIN = 0x10000000, LENGTH = 32K
 	}
 
-_init_sp = ORIGIN(sram2) + LENGTH(sram2) - 1;
+_init_sp = ORIGIN(sram2) + LENGTH(sram2);
 
 SECTIONS
 	{
