@@ -30,4 +30,4 @@ clean:
 %.d : %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -M -MF $@ -MP $<
 
-.PHONY: runJLink clean
+.PHONY: startgdbserver clean
