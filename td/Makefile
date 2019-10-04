@@ -10,7 +10,10 @@ TARGET_ARCH := -mcpu=cortex-m4 -mthumb
 LDFLAGS := -T ld_ram.lds -nostdlib
 
 EXE = main
-SOURCES = main.c modules/gpio/leds/led.c init.c
+SOURCES = 	main.c \
+ 			init.c \
+			modules/gpio/leds/led.c
+			
 S_SOURCES = crt0.s
 
 OBJ := $(subst .c,.o,$(SOURCES))

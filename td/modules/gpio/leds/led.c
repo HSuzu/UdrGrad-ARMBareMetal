@@ -3,7 +3,8 @@
 void led_init() {
     /* Configuration  of green LED  (PB14) */
     RCC_AHB2ENR = RCC_AHB2ENR | (1 << 1);
-    GPIOB_MODER = (GPIOB_MODER & ~(3 << 28))|(1 << 28);
+//    GPIOB_MODER = (GPIOB_MODER & ~(3 << 28))|(1 << 28);
+    GPIOB_MODERbits.MODE14 = 1;
 
     /* Configuration of red and green LED (PC9)
      * Input = both leds turn off
