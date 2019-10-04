@@ -4,11 +4,13 @@ CFLAGS := -nostdlib -Wall -Wextra -Werror \
 					-c -g -O1 \
 #					-mfloat-abi=hard -mfpu=fpv4-sp-d16
 
+CPPFLAGS := -Imodules/
+
 TARGET_ARCH := -mcpu=cortex-m4 -mthumb
 LDFLAGS := -T ld_ram.lds -nostdlib
 
 EXE = main
-SOURCES = main.c init.c
+SOURCES = main.c modules/gpio/leds/led.c init.c
 S_SOURCES = crt0.s
 
 OBJ := $(subst .c,.o,$(SOURCES))
@@ -28,6 +30,7 @@ clean:
 #-include $(DEP)
 
 %.d : %.c
+	echo $(DEP)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -M -MF $@ -MP $<
 
-.PHONY: runJLink clean
+.PHONY: startgdbserver clean

@@ -1,16 +1,13 @@
 #include <stdint.h>
-
-int bss_variable[10];
-
-int fibo(int n) {
-  if(n <= 1)
-    return 1;
-
-  return fibo(n-1)+fibo(n-2);
-}
+#include <gpio/leds/led.h>
 
 int main() {
-	fibo(8);
+    led_init();
+    while(1) {
+        ledBlink(LED_GREEN);
+        ledBlink(LED_YELLOW);
+        ledBlink(LED_BLUE);
+    }
 
 	while(1);
 	return 0;
