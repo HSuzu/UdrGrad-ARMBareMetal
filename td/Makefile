@@ -4,7 +4,9 @@ CFLAGS := -nostdlib -Wall -Wextra -Werror \
 					-c -g -O1 \
 					-mfloat-abi=hard -mfpu=fpv4-sp-d16
 
-CPPFLAGS := -Imodules/
+CPPFLAGS := -Imodules/ \
+			-ICMSIS/Device/ST/STM32L4xx/Include \
+			-ICMSIS/Include
 
 TARGET_ARCH := -mcpu=cortex-m4 -mthumb
 LDFLAGS := -T ld_ram.lds -nostdlib
