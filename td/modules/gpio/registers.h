@@ -22,31 +22,6 @@
 #define GPIO_BRR_OFFSET     (0x28) /* A to I */
 #define GPIO_ASCR_OFFSET    (0x2C) /* A to H */
 
-typedef union {
-    uint32_t MODER;
-    struct {
-        unsigned MODE15 : 2;
-        unsigned MODE14 : 2;
-        unsigned MODE13 : 2;
-        unsigned MODE12 : 2;
-        unsigned MODE11 : 2;
-        unsigned MODE10 : 2;
-        unsigned MODE9  : 2;
-        unsigned MODE8  : 2;
-        unsigned MODE7  : 2;
-        unsigned MODE6  : 2;
-        unsigned MODE5  : 2;
-        unsigned MODE4  : 2;
-        unsigned MODE3  : 2;
-        unsigned MODE2  : 2;
-        unsigned MODE1  : 2;
-        unsigned MODE0  : 2;
-    };
-} GPIOx_MODER_t;
-
-
-#define GPIOB_MODERbits (*((volatile GPIOx_MODER_t *)(GPIOB_BASE_ADDRESS + GPIO_MODER_OFFSET)))
-
 #define GPIOB_MODER (*((volatile uint32_t *)(GPIOB_BASE_ADDRESS + GPIO_MODER_OFFSET)))
 #define GPIOC_MODER (*((volatile uint32_t *)(GPIOC_BASE_ADDRESS + GPIO_MODER_OFFSET)))
 
