@@ -1,17 +1,20 @@
 #include <stdint.h>
-
-int bss_variable[10];
-int k;
-
-int fibo(int n) {
-  if(n <= 2)
-    return 1;
-
-  return fibo(n-1)+fibo(n-2);
-}
+#include <gpio/leds/led.h>
 
 int main() {
-	k = fibo(8);
+    led_init();
+    while(1) {
+        led_g_on();
+        for (int i=0; i<200000; i++) {
+            asm volatile("nop");
+        }
+
+        led_g_off();
+
+        for (int i=0; i<20000; i++) {
+            asm volatile("nop");
+        }
+    }
 
 	while(1);
 	return 0;
