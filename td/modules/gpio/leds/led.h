@@ -1,5 +1,5 @@
-#include <gpio/registers.h>
-#include <rcc/registers.h>
+#include <stm32l475xx.h>
+#include <stm32l4xx.h>
 
 typedef enum {
     LED_OFF,

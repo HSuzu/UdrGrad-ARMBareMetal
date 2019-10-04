@@ -30,7 +30,7 @@ startgdbserver:
 clean:
 	rm -f $(EXE) $(OBJ) $(S_OBJ) $(DEP)
 
-#-include $(DEP)
+-include $(DEP)
 
 %.d : %.c
 	echo $(DEP)
