@@ -2,7 +2,7 @@ CC := arm-none-eabi-gcc
 AS := arm-none-eabi-as
 CFLAGS := -nostdlib -Wall -Wextra -Werror \
 					-c -g -O1 \
-#					-mfloat-abi=hard -mfpu=fpv4-sp-d16
+					-mfloat-abi=hard -mfpu=fpv4-sp-d16
 
 CPPFLAGS := -Imodules/
 
@@ -12,13 +12,14 @@ LDFLAGS := -T ld_ram.lds -nostdlib
 EXE = main
 SOURCES = main.c modules/gpio/leds/led.c init.c
 S_SOURCES = crt0.s
+O_SOURCES = modules/clocks/clocks.o
 
 OBJ := $(subst .c,.o,$(SOURCES))
 S_OBJ := $(subst .s,.o,$(S_SOURCES))
 
 DEP := $(subst .c,.d,$(SOURCES))
 
-$(EXE): $(OBJ) $(S_OBJ)
+$(EXE): $(OBJ) $(S_OBJ) $(O_SOURCES)
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
 startgdbserver:

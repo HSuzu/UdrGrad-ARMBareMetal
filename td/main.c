@@ -1,7 +1,9 @@
 #include <stdint.h>
 #include <gpio/leds/led.h>
+#include <clocks/clocks.h>
 
 int main() {
+ 	clocks_init();
     led_init();
     while(1) {
         ledBlink(LED_GREEN);
