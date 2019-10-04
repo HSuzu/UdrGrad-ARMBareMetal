@@ -23,6 +23,10 @@
 #define GPIO_ASCR_OFFSET    (0x2C) /* A to H */
 
 #define GPIOB_MODER (*((volatile uint32_t *)(GPIOB_BASE_ADDRESS + GPIO_MODER_OFFSET)))
+#define GPIOC_MODER (*((volatile uint32_t *)(GPIOC_BASE_ADDRESS + GPIO_MODER_OFFSET)))
+
 #define GPIOB_BSRR (*((volatile uint32_t *)(GPIOB_BASE_ADDRESS + GPIO_BSRR_OFFSET)))
+#define GPIOC_BSRR (*((volatile uint32_t *)(GPIOC_BASE_ADDRESS + GPIO_BSRR_OFFSET)))
+
 /** WIP **/
 #define GPIO_REG(x, name) (*((volatile uint32_t *)(GPIO##x##_BASE_ADDRESS + GPIO_##name##_OFFSET)))
