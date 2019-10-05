@@ -12,7 +12,11 @@ TARGET_ARCH := -mcpu=cortex-m4 -mthumb
 LDFLAGS := -T ld_ram.lds -nostdlib
 
 EXE = main
-SOURCES = main.c modules/gpio/leds/led.c init.c
+SOURCES = main.c \
+		  init.c \
+		  modules/gpio/leds/led.c \
+		  modules/uart/uart.c
+		  
 S_SOURCES = crt0.s
 O_SOURCES = modules/clocks/clocks.o
 

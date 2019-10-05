@@ -1,15 +1,17 @@
 #include <stdint.h>
-#include <gpio/leds/led.h>
 #include <clocks/clocks.h>
+#include <gpio/leds/led.h>
+#include <uart/uart.h>
 
 int main() {
  	clocks_init();
     led_init();
-    while(1) {
-        ledBlink(LED_GREEN);
-        ledBlink(LED_YELLOW);
-        ledBlink(LED_BLUE);
-    }
+	uart_init();
+
+	while(1) {
+		uint8_t c = uart_getchar();
+		uart_putchar(c);
+	}
 
 	while(1);
 	return 0;
