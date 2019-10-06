@@ -60,12 +60,14 @@ void uart_init() {
 }
 
 void uart_putchar(uint8_t c) {
-	while(!(USART1->ISR & USART_ISR_TXE)) {}
+	while(!(USART1->ISR & USART_ISR_TXE));
 	USART1->TDR = c;
 }
 
 uint8_t uart_getchar() {
-	while(!(USART1->ISR & USART_ISR_RXNE)) {}
+	// while(USART1->ISR & USART_ISR_FE);
+	// while(USART1->ISR & USART_ISR_ORE);
+	while(!(USART1->ISR & USART_ISR_RXNE));
 	return USART1->RDR;
 }
 
@@ -114,7 +116,7 @@ void uart_hex(uint32_t n) {
 		if(p <= 9) {
 			uart_putchar(p + '0');
 		} else {
-			uart_putchar(p + 'A');
+			uart_putchar(p - 10 + 'A');
 		}
 	}
 
