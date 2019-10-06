@@ -68,3 +68,57 @@ uint8_t uart_getchar() {
 	while(!(USART1->ISR & USART_ISR_RXNE)) {}
 	return USART1->RDR;
 }
+
+void uart_puts(const uint8_t *s) {
+	int i = 0;
+	while(s[i] != '\0') {
+		uart_putchar(s[i]);
+		i++;
+	}
+
+	uart_putchar('\n');
+	/* Carriage return */
+	uart_putchar(0xd);
+}
+
+void uart_gets(uint8_t *s, size_t size) {
+	uint8_t c = uart_getchar();
+	size_t i = 0;
+
+	while (c != '\n' && c != 0xd && i < size-1) {
+		s[i] = c;
+
+		i++;
+		c = uart_getchar();
+	}
+
+	s[i] = '\0';
+}
+
+
+void uart_putn(const uint8_t *s, size_t n) {
+	size_t i = 0;
+	while(i < n && s[i] != '\0') {
+		uart_putchar(s[i]);
+	}
+
+	uart_putchar('\n');
+}
+
+void uart_hex(uint32_t n) {
+	uart_putchar('0');
+	uart_putchar('x');
+	for(int i = 7; i >= 0 ; i--) {
+		uint8_t p = ((uint32_t)(n & (uint32_t)(0xF << (i*4))) >> (i*4));
+
+		if(p <= 9) {
+			uart_putchar(p + '0');
+		} else {
+			uart_putchar(p + 'A');
+		}
+	}
+
+	uart_putchar('\n');
+	/* Carriage return */
+	uart_putchar(0xd);
+}

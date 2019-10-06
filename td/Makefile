@@ -1,5 +1,6 @@
 CC := arm-none-eabi-gcc
 AS := arm-none-eabi-as
+GDB := arm-none-eabi-gdb
 CFLAGS := -nostdlib -Wall -Wextra -Werror \
 					-c -g -O1 \
 					-mfloat-abi=hard -mfpu=fpv4-sp-d16
@@ -16,7 +17,7 @@ SOURCES = main.c \
 		  init.c \
 		  modules/gpio/leds/led.c \
 		  modules/uart/uart.c
-		  
+
 S_SOURCES = crt0.s
 O_SOURCES = modules/clocks/clocks.o
 
@@ -31,6 +32,9 @@ $(EXE): $(OBJ) $(S_OBJ) $(O_SOURCES)
 startgdbserver:
 	JLinkGDBServer -device STM32L475VG -endian little -if SWD -speed auto -ir -LocalhostOnly
 
+startgdb:
+	$(GDB) $(EXE)
+
 clean:
 	rm -f $(EXE) $(OBJ) $(S_OBJ) $(DEP)
 
@@ -40,4 +44,4 @@ clean:
 	echo $(DEP)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -M -MF $@ -MP $<
 
-.PHONY: startgdbserver clean
+.PHONY: startgdbserver clean startgdb

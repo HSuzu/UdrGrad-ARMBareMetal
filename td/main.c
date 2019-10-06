@@ -8,9 +8,12 @@ int main() {
     led_init();
 	uart_init();
 
+	uint8_t input[1000];
+
 	while(1) {
-		uint8_t c = uart_getchar();
-		uart_putchar(c);
+		uart_puts((uint8_t *) "Type Anything:");
+		uart_gets(input, 1000);
+		uart_puts(input);
 	}
 
 	while(1);
