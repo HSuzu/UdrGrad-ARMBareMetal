@@ -2,28 +2,16 @@
 #include <clocks/clocks.h>
 #include <gpio/leds/led.h>
 #include <uart/uart.h>
-
-#define N 1000
-
-uint32_t sum = 0;
+#include <ledmatrix/matrix.h>
 
 int main() {
  	clocks_init();
     led_init();
 	uart_init();
+    matrix_init();
 
-	uint8_t input = 0;
+    deactivate_rows();
 
-	while(1) {
-		int i = 0;
-		while(i++ < N) {
-			input = uart_getchar();
-			sum += input;
-		}
-		uart_hex(sum);
-        uart_waitTransmission();
-		sum = 0;
-	}
 
 	while(1);
 	return 0;

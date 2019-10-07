@@ -16,7 +16,8 @@ EXE = main
 SOURCES = main.c \
 		  init.c \
 		  modules/gpio/leds/led.c \
-		  modules/uart/uart.c
+		  modules/uart/uart.c \
+		  modules/ledmatrix/matrix.c
 
 S_SOURCES = crt0.s
 O_SOURCES = modules/clocks/clocks.o
