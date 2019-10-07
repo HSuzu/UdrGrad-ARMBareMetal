@@ -13,12 +13,6 @@ void uart_init() {
 
 	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
 
-	/* Activate USART CLOCK and set it for PCLK (value = 0) */
-	RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
-	RCC->CCIPR &= ~RCC_CCIPR_USART1SEL;
-
-	/* IMPORTANT: It must have 2 cycles before changing any register of USART1 */
-
 	/* Configure UART ports: AF (Alternative Function) to AF7 */
 	GPIOB->MODER = (GPIOB->MODER & ~GPIO_MODER_MODE6_Msk) | GPIO_MODER_MODE6_1;
 	GPIOB->MODER = (GPIOB->MODER & ~GPIO_MODER_MODE7_Msk) | GPIO_MODER_MODE7_1;
@@ -26,8 +20,15 @@ void uart_init() {
 	GPIOB->AFR[0] = (GPIOB->AFR[0] & ~GPIO_AFRL_AFSEL6) | (0x7 << GPIO_AFRL_AFSEL6_Pos);
 	GPIOB->AFR[0] = (GPIOB->AFR[0] & ~GPIO_AFRL_AFSEL7) | (0x7 << GPIO_AFRL_AFSEL7_Pos);
 
+	/* Activate USART CLOCK and set it for PCLK (value = 0) */
+	RCC->APB2ENR |= RCC_APB2ENR_USART1EN;
+	RCC->CCIPR &= ~RCC_CCIPR_USART1SEL;
+
 	/* Reset USART1 */
-	// RCC->APB2RSTR = RCC_APB2RSTR_USART1RST;
+	RCC->APB2RSTR = RCC_APB2RSTR_USART1RST;
+	RCC->APB2RSTR &= ~RCC_APB2RSTR_USART1RST;
+
+	/* IMPORTANT: It must have 2 cycles before changing any register of USART1 */
 
 	/* Configure baud rate to 115200 (oversample = 16) */
 	#ifdef UART_OVERSAPLING16
