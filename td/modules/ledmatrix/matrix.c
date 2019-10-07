@@ -74,9 +74,7 @@ void matrix_init() {
     C0(0); C1(0); C2(0); C3(0); C4(0); C5(0); C6(0); C7(0);
 
     /* 100 ms wait */
-    for(int i = 0; i < 800000000; i++) {
-        asm volatile("nop");
-    }
+    mswait(100);
 
     RST(1);
 
@@ -97,16 +95,19 @@ void pulse_LAT() {
     asm volatile("nop");
 }
 
-void deactivate_rows() {
-    C0(0); C1(0); C2(0); C3(0); C4(0); C5(0); C6(0); C7(0);
-
-    /* Write 1 to the Bank 1 */
-    SB(0);
-    SDA(1);
+void cleanBank(int n) {
+    SB(n);
+    SDA(0);
     for(int i = 0; i < B1_SIZE; i++) {
         pulse_SCK();
     }
     pulse_LAT();
+}
+
+void deactivate_rows() {
+    C0(0); C1(0); C2(0); C3(0); C4(0); C5(0); C6(0); C7(0);
+
+    cleanBank(1);
 }
 
 void activate_row(int row) {
@@ -138,10 +139,5 @@ void activate_row(int row) {
     }
 
     /* Write 0 to the Bank 1 */
-    SB(0);
-    SDA(0);
-    for(int i = 0; i < B1_SIZE; i++) {
-        pulse_SCK();
-    }
-    pulse_LAT();
+    cleanBank(1);
 }

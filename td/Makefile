@@ -6,6 +6,7 @@ CFLAGS := -nostdlib -Wall -Wextra -Werror \
 					-mfloat-abi=hard -mfpu=fpv4-sp-d16
 
 CPPFLAGS := -Imodules/ \
+			-Iutils/ \
 			-ICMSIS/Device/ST/STM32L4xx/Include \
 			-ICMSIS/Include
 
@@ -17,7 +18,8 @@ SOURCES = main.c \
 		  init.c \
 		  modules/gpio/leds/led.c \
 		  modules/uart/uart.c \
-		  modules/ledmatrix/matrix.c
+		  modules/ledmatrix/matrix.c \
+		  utils/utils.c
 
 S_SOURCES = crt0.s
 O_SOURCES = modules/clocks/clocks.o
