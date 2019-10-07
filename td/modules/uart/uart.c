@@ -65,8 +65,8 @@ void uart_putchar(uint8_t c) {
 }
 
 uint8_t uart_getchar() {
-	// while(USART1->ISR & USART_ISR_FE);
-	// while(USART1->ISR & USART_ISR_ORE);
+	while(USART1->ISR & USART_ISR_FE);
+	while(USART1->ISR & USART_ISR_ORE);
 	while(!(USART1->ISR & USART_ISR_RXNE));
 	return USART1->RDR;
 }

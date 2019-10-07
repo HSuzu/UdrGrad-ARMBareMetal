@@ -36,6 +36,9 @@ startgdb:
 	make
 	$(GDB) $(EXE)
 
+starttio:
+	tio -b 115200 -d 8 -s 1 -p none /dev/ttyACM0
+
 clean:
 	rm -f $(EXE) $(OBJ) $(S_OBJ) $(DEP)
 
@@ -45,4 +48,4 @@ clean:
 	echo $(DEP)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH) -M -MF $@ -MP $<
 
-.PHONY: startgdbserver clean startgdb
+.PHONY: startgdbserver clean startgdb starttio
