@@ -65,9 +65,12 @@ void uart_putchar(uint8_t c) {
 }
 
 uint8_t uart_getchar() {
-	while(USART1->ISR & USART_ISR_FE);
-	while(USART1->ISR & USART_ISR_ORE);
 	while(!(USART1->ISR & USART_ISR_RXNE));
+	/* Framming error handle */
+	while(USART1->ISR & USART_ISR_FE);
+	/* Overrun error handle */
+	while(USART1->ISR & USART_ISR_ORE);
+
 	return USART1->RDR;
 }
 
@@ -123,4 +126,9 @@ void uart_hex(uint32_t n) {
 	uart_putchar('\n');
 	/* Carriage return */
 	uart_putchar(0xd);
+}
+
+void uart_waitTransmission() {
+	/* Wait for the completion of the transmission */
+	while(!(USART1->ISR & USART_ISR_TC));
 }

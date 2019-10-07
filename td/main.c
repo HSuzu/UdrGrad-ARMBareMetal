@@ -21,6 +21,7 @@ int main() {
 			sum += input;
 		}
 		uart_hex(sum);
+        uart_waitTransmission();
 		sum = 0;
 	}
 
