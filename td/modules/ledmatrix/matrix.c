@@ -56,16 +56,6 @@ void matrix_configPorts() {
     GPIOC->OSPEEDR = (GPIOC->OSPEEDR & ~GPIO_OSPEEDR_OSPEED5) | GPIO_OSPEEDR_OSPEED5_1;
 }
 
-void matrix_initB0() {
-    /* Write 1 to the Bank 0 */
-    SB(0);
-    SDA(1);
-    for(int i = 0; i < B0_SIZE; i++) {
-        pulse_SCK();
-    }
-    pulse_LAT();
-}
-
 void matrix_init() {
     matrix_configPorts();
 
@@ -78,7 +68,17 @@ void matrix_init() {
 
     RST(1);
 
-    matrix_initB0();
+    init_bank0();
+}
+
+void init_bank0() {
+    /* Write 1 to the Bank 0 */
+    SB(0);
+    SDA(1);
+    for(int i = 0; i < B0_SIZE; i++) {
+        pulse_SCK();
+    }
+    pulse_LAT();
 }
 
 void pulse_SCK() {
@@ -134,12 +134,57 @@ void activate_row(int row) {
             C0(0); C1(0); C2(0); C3(0); C4(0); C5(0); C6(0); C7(1);
         break;
     }
+}
 
-    /* Write 1 to the Bank 1 */
-	SB(1);
-    SDA(1);
-    for(int i = 0; i < B1_SIZE; i++) {
+void send_byte(uint8_t val, int bank) {
+	SB(bank);
+	for(int i = 7; i >= 0; i--) {
+		SDA((val & (1 << i)) >> i);
         pulse_SCK();
     }
-    pulse_LAT();
+}
+
+void mat_set_row(int row, const rgb_color *val) {
+	for(int i = 7; i >=0; i--) {
+		send_byte(val[i].b, 1);
+		send_byte(val[i].g, 1);
+		send_byte(val[i].r, 1);
+	}
+	pulse_LAT();
+
+	activate_row(row);
+}
+
+void test_pixels() {
+	rgb_color col[8];
+
+	for(int j = 0; j < 8; j++) {
+		for(int i = 0; i < 8; i++) {
+			col[i].b = (0xFF >> (7-i))*(8-j)/8;
+			col[i].g = (0xFF >> (7-j))*(1-(8-j)/8);
+			col[i].r = 0;
+		}
+		mat_set_row(j, col);
+		mswait(200);
+	}
+
+	for(int j = 0; j < 8; j++) {
+		for(int i = 0; i < 8; i++) {
+			col[i].b = 0;
+			col[i].g = (0xFF >> (7-i))*(8-j)/8;
+			col[i].r = (0xFF >> (7-j))*(1-(8-j)/8);
+		}
+		mat_set_row(j, col);
+		mswait(200);
+	}
+
+	for(int j = 0; j < 8; j++) {
+		for(int i = 0; i < 8; i++) {
+			col[i].b = (0xFF >> (7-j))*(1-(8-j)/8);
+			col[i].g = 0;
+			col[i].r = (0xFF >> (7-i))*(8-j)/8;
+		}
+		mat_set_row(j, col);
+		mswait(200);
+	}
 }
