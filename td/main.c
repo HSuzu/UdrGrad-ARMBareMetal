@@ -13,31 +13,31 @@ int main() {
 
     while(1) {
         activate_row(0);
-        mswait(500);
+        mswait(100);
 
         activate_row(1);
-        mswait(500);
+        mswait(100);
 
         activate_row(2);
-        mswait(500);
+        mswait(100);
 
         activate_row(3);
-        mswait(500);
+        mswait(100);
 
         activate_row(4);
-        mswait(500);
+        mswait(100);
 
         activate_row(5);
-        mswait(500);
+        mswait(100);
 
         activate_row(6);
-        mswait(500);
+        mswait(100);
 
         activate_row(7);
-        mswait(500);
+        mswait(100);
 
         deactivate_rows();
-        mswait(500);
+        mswait(100);
     }
 
 

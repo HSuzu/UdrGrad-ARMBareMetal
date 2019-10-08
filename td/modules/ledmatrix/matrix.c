@@ -95,19 +95,16 @@ void pulse_LAT() {
     asm volatile("nop");
 }
 
-void cleanBank(int n) {
-    SB(n);
+void deactivate_rows() {
+    C0(0); C1(0); C2(0); C3(0); C4(0); C5(0); C6(0); C7(0);
+
+	/* Write 0 to Bank 1 */
+	SB(1);
     SDA(0);
     for(int i = 0; i < B1_SIZE; i++) {
         pulse_SCK();
     }
     pulse_LAT();
-}
-
-void deactivate_rows() {
-    C0(0); C1(0); C2(0); C3(0); C4(0); C5(0); C6(0); C7(0);
-
-    cleanBank(1);
 }
 
 void activate_row(int row) {
@@ -138,6 +135,11 @@ void activate_row(int row) {
         break;
     }
 
-    /* Write 0 to the Bank 1 */
-    cleanBank(1);
+    /* Write 1 to the Bank 1 */
+	SB(1);
+    SDA(1);
+    for(int i = 0; i < B1_SIZE; i++) {
+        pulse_SCK();
+    }
+    pulse_LAT();
 }
