@@ -5,14 +5,28 @@
 #include <uart/uart.h>
 #include <ledmatrix/matrix.h>
 
+extern const uint8_t _binary_image_raw_start;
+extern const uint8_t _binary_image_raw_end;
+extern const uint8_t _binary_image_raw_size;
+
 int main() {
  	clocks_init();
     led_init();
 	uart_init();
     matrix_init();
 
+	uint8_t size = _binary_image_raw_size;
+	const uint8_t *img = & _binary_image_raw_start;
+	rgb_color art[64];
+
+	for(int i = 0, j = 0; i < 64 && size >= 3; i++) {
+		art[i].r = img[j++];
+		art[i].g = img[j++];
+		art[i].b = img[j++];
+	}
+
     while(1) {
-		test_pixels();
+		write_image(art, 1);
     }
 
 

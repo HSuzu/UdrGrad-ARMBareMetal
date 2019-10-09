@@ -19,4 +19,6 @@ void activate_row(int row);
 void send_byte(uint8_t val, int bank);
 void mat_set_row(int row, const rgb_color *val);
 
+/* img is a vector of 64 pixels */
+void write_image(rgb_color *img, int ms_pxwait);
 void test_pixels();

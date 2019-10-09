@@ -1,5 +1,6 @@
 CC := arm-none-eabi-gcc
 AS := arm-none-eabi-as
+LD := arm-none-eabi-ld
 GDB := arm-none-eabi-gdb
 CFLAGS := -nostdlib -Wall -Wextra -Werror \
 					-c -g -O1 \
@@ -23,14 +24,21 @@ SOURCES = main.c \
 
 S_SOURCES = crt0.s
 O_SOURCES = modules/clocks/clocks.o
+# Raw data sources
+R_SOURCES = image.raw
 
 OBJ := $(subst .c,.o,$(SOURCES))
 S_OBJ := $(subst .s,.o,$(S_SOURCES))
+R_OBJ := $(subst .raw,.o,$(R_SOURCES))
 
 DEP := $(subst .c,.d,$(SOURCES))
 
-$(EXE): $(OBJ) $(S_OBJ) $(O_SOURCES)
+$(EXE): $(OBJ) $(S_OBJ) $(O_SOURCES) $(R_OBJ)
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+# https://csl.name/post/embedding-binary-data/
+$(R_OBJ) : $(R_SOURCES)
+	$(LD) -r -b binary $< -o $@
 
 startgdbserver:
 	JLinkGDBServer -device STM32L475VG -endian little -if SWD -speed auto -ir -LocalhostOnly
@@ -43,7 +51,7 @@ starttio:
 	tio -b 115200 -d 8 -s 1 -p none /dev/ttyACM0
 
 clean:
-	rm -f $(EXE) $(OBJ) $(S_OBJ) $(DEP)
+	rm -f $(EXE) $(OBJ) $(S_OBJ) $(R_OBJ) $(DEP)
 
 -include $(DEP)
 

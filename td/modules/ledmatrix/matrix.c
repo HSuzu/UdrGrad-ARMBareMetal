@@ -188,3 +188,10 @@ void test_pixels() {
 		mswait(200);
 	}
 }
+
+void write_image(rgb_color *img, int ms_pxwait) {
+	for(int j = 0; j < 8; j++) {
+		mat_set_row(j, &(img[j*8]));
+		mswait(ms_pxwait);
+	}
+}
