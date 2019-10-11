@@ -139,7 +139,7 @@ void activate_row(int row) {
 void send_byte(uint8_t val, int bank) {
 	SB(bank);
 	for(int i = 7; i >= 0; i--) {
-		SDA((val & (1 << i)) >> i);
+		SDA((val & (1 << i)));
         pulse_SCK();
     }
 }
