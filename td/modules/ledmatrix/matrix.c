@@ -110,28 +110,28 @@ void deactivate_rows() {
 void activate_row(int row) {
     switch (row) {
         case 0:
-            C0(1); C1(0); C2(0); C3(0); C4(0); C5(0); C6(0); C7(0);
+            ROW0(1);
         break;
         case 1:
-            C0(0); C1(1); C2(0); C3(0); C4(0); C5(0); C6(0); C7(0);
+            ROW1(1);
         break;
         case 2:
-            C0(0); C1(0); C2(1); C3(0); C4(0); C5(0); C6(0); C7(0);
+            ROW2(1);
         break;
         case 3:
-            C0(0); C1(0); C2(0); C3(1); C4(0); C5(0); C6(0); C7(0);
+            ROW3(1);
         break;
         case 4:
-            C0(0); C1(0); C2(0); C3(0); C4(1); C5(0); C6(0); C7(0);
+            ROW4(1);
         break;
         case 5:
-            C0(0); C1(0); C2(0); C3(0); C4(0); C5(1); C6(0); C7(0);
+            ROW5(1);
         break;
         case 6:
-            C0(0); C1(0); C2(0); C3(0); C4(0); C5(0); C6(1); C7(0);
+            ROW6(1);
         break;
         case 7:
-            C0(0); C1(0); C2(0); C3(0); C4(0); C5(0); C6(0); C7(1);
+            ROW7(1);
         break;
     }
 }
