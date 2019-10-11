@@ -1,3 +1,6 @@
+#ifndef MATRIX_MACROS_H
+#define MATRIX_MACROS_H
+
 #include <stm32l475xx.h>
 #include <stm32l4xx.h>
 
@@ -34,3 +37,5 @@
 #define C5(x)  do { ((x)? (GPIOA->BSRR = GPIO_BSRR_BS_5) : (GPIOA->BSRR = GPIO_BSRR_BR_5));   } while (0);
 #define C6(x)  do { ((x)? (GPIOB->BSRR = GPIO_BSRR_BS_0) : (GPIOB->BSRR = GPIO_BSRR_BR_0));   } while (0);
 #define C7(x)  do { ((x)? (GPIOA->BSRR = GPIO_BSRR_BS_3) : (GPIOA->BSRR = GPIO_BSRR_BR_3));   } while (0);
+
+#endif // MATRIX_MACROS_H

@@ -1,3 +1,6 @@
+#ifndef UART_H
+#define UART_H
+
 #include <stm32l475xx.h>
 #include <stm32l4xx.h>
 #include <stdint.h>
@@ -16,3 +19,5 @@ void uart_putn(const uint8_t *s, size_t n);
 
 void uart_waitTransmission();
 void uart_hex(uint32_t n);
+
+#endif // UART_H

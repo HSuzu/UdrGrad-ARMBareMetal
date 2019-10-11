@@ -9,7 +9,7 @@
 
 void uart_init() {
 	/* Disable USART */
-	// USART1->CR1 &= ~(USART_CR1_UE);
+	USART1->CR1 &= ~(USART_CR1_UE);
 
 	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
 
@@ -50,10 +50,8 @@ void uart_init() {
 	/* Configure UART to handle words of 8 bits (M = 0),
 	 * 16 oversample (OVER8 = 0), no parity (PCE = 0)
 	 * and 1 stop bit (STOP = 0) */
-	USART1->CR1 = USART1->CR1 & ~(USART_CR1_M1 | USART_CR1_M0);
-	USART1->CR1 = USART1->CR1 & ~USART_CR1_OVER8;
-	USART1->CR1 = USART1->CR1 & ~USART_CR1_PCE;
-	USART1->CR2 = USART1->CR2 & ~USART_CR2_STOP;
+	USART1->CR1 = 0;
+	USART1->CR2 = 0;
 
 	/* Enable transmitter and receiver */
 	USART1->CR1 = USART1->CR1 | USART_CR1_UE;
@@ -84,14 +82,14 @@ void uart_puts(const uint8_t *s) {
 
 	uart_putchar('\n');
 	/* Carriage return */
-	uart_putchar(0xd);
+	uart_putchar('\r');
 }
 
 void uart_gets(uint8_t *s, size_t size) {
 	uint8_t c = uart_getchar();
 	size_t i = 0;
 
-	while (c != '\n' && c != 0xd && i < size-1) {
+	while (c != '\n' && c != '\r' && i < size-1) {
 		s[i] = c;
 
 		i++;
@@ -126,7 +124,7 @@ void uart_hex(uint32_t n) {
 
 	uart_putchar('\n');
 	/* Carriage return */
-	uart_putchar(0xd);
+	uart_putchar('\r');
 }
 
 void uart_waitTransmission() {

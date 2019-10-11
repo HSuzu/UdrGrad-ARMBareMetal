@@ -7,7 +7,6 @@
 
 _start:
 	ldr sp, =_init_sp
-#	ldr sp, [r0]
 	mov r0, 0
 	bl	init_bss
 	bl	main

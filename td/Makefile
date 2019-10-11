@@ -3,24 +3,24 @@ AS := arm-none-eabi-as
 LD := arm-none-eabi-ld
 GDB := arm-none-eabi-gdb
 CFLAGS := -nostdlib -Wall -Wextra -Werror \
-					-c -g -O1 \
-					-mfloat-abi=hard -mfpu=fpv4-sp-d16
+          -c -g -O1 \
+          -mfloat-abi=hard -mfpu=fpv4-sp-d16
 
 CPPFLAGS := -Imodules/ \
-			-Iutils/ \
-			-ICMSIS/Device/ST/STM32L4xx/Include \
-			-ICMSIS/Include
+            -Iutils/ \
+            -ICMSIS/Device/ST/STM32L4xx/Include \
+            -ICMSIS/Include
 
 TARGET_ARCH := -mcpu=cortex-m4 -mthumb
 LDFLAGS := -T ld_ram.lds -nostdlib
 
 EXE = main
 SOURCES = main.c \
-		  init.c \
-		  modules/gpio/leds/led.c \
-		  modules/uart/uart.c \
-		  modules/ledmatrix/matrix.c \
-		  utils/utils.c
+          init.c \
+          modules/gpio/leds/led.c \
+          modules/uart/uart.c \
+          modules/ledmatrix/matrix.c \
+          utils/utils.c
 
 S_SOURCES = crt0.s
 O_SOURCES = modules/clocks/clocks.o
@@ -36,7 +36,6 @@ DEP := $(subst .c,.d,$(SOURCES))
 $(EXE): $(OBJ) $(S_OBJ) $(O_SOURCES) $(R_OBJ)
 	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
-# https://csl.name/post/embedding-binary-data/
 $(R_OBJ) : $(R_SOURCES)
 	$(LD) -r -b binary $< -o $@
 
