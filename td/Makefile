@@ -20,7 +20,8 @@ SOURCES = main.c \
           modules/gpio/leds/led.c \
           modules/uart/uart.c \
           modules/ledmatrix/matrix.c \
-          utils/utils.c
+          utils/utils.c \
+		  modules/irq/irq.c
 
 S_SOURCES = crt0.s
 O_SOURCES = modules/clocks/clocks.o
@@ -34,7 +35,6 @@ R_OBJ := $(subst .raw,.o,$(R_SOURCES))
 DEP := $(subst .c,.d,$(SOURCES))
 
 $(EXE): $(OBJ) $(S_OBJ) $(O_SOURCES) $(R_OBJ)
-	$(LINK.o) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
 $(R_OBJ) : $(R_SOURCES)
 	$(LD) -r -b binary $< -o $@
