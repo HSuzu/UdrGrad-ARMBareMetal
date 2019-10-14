@@ -205,5 +205,5 @@ void *irq_vector_table[]  __attribute__ ((aligned (128))) = {
 
 
 void irq_init() {
-    SCB->VTOR = (uint32_t) irq_vector_table;
+    SCB->VTOR = ((uint32_t) irq_vector_table);
 }

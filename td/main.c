@@ -5,6 +5,7 @@
 #include <gpio/leds/led.h>
 #include <uart/uart.h>
 #include <ledmatrix/matrix.h>
+#include <buttons/buttons.h>
 
 extern const uint8_t _binary_image_raw_start;
 extern const uint8_t _binary_image_raw_end;
@@ -16,6 +17,7 @@ int main() {
     led_init();
 	uart_init();
     matrix_init();
+	button_init();
 
 	uint8_t size = _binary_image_raw_size;
 	const uint8_t *img = & _binary_image_raw_start;

@@ -21,7 +21,8 @@ SOURCES = main.c \
           modules/uart/uart.c \
           modules/ledmatrix/matrix.c \
           utils/utils.c \
-		  modules/irq/irq.c
+		  modules/irq/irq.c \
+		  modules/buttons/buttons.c
 
 S_SOURCES = crt0.s
 O_SOURCES = modules/clocks/clocks.o
