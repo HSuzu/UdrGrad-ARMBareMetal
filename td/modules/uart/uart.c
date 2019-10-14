@@ -7,7 +7,7 @@
  **/
 
 
-void uart_init() {
+void uart_init(int baudrate) {
 	/* Disable USART */
 	USART1->CR1 &= ~(USART_CR1_UE);
 
@@ -30,9 +30,9 @@ void uart_init() {
 
 	/* IMPORTANT: It must have 2 cycles before changing any register of USART1 */
 
-	/* Configure baud rate to 115200 (oversample = 16) */
+	/* Configure baud rate to baudrate (oversample = 16) */
 	#ifdef UART_OVERSAPLING16
-		uint32_t USARTDIV = FCK/UART_BAUD_RATE;
+		uint32_t USARTDIV = FCK/baudrate;
 		uint32_t brr = USARTDIV;
 	#else
 		uint32_t USARTDIV = 2*FCK/UART_BAUD_RATE;
