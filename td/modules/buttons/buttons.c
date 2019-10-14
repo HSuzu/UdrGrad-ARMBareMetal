@@ -20,6 +20,8 @@ void button_init(void) {
     SYSCFG->EXTICR[3] |= SYSCFG_EXTICR4_EXTI13_PC;
 }
 
-// void EXTI15_10_IRQHandler() {
-//     EXTI->PR1 |= EXTI_PR1_PIF13;
-// }
+void EXTI15_10_IRQHandler() {
+    EXTI->PR1 |= EXTI_PR1_PIF13;
+
+    ledBlink(LED_GREEN);
+}

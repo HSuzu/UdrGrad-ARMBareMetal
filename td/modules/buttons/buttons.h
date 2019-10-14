@@ -4,6 +4,8 @@
 #include <stm32l4xx.h>
 #include <stdint.h>
 
+#include <gpio/leds/led.h>
+
 void button_init(void);
 
 #endif // BUTTONS_H
