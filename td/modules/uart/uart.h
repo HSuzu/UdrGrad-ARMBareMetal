@@ -6,6 +6,9 @@
 #include <stdint.h>
 #include <stddef.h>
 
+#include <uart_img/uart_img.h>
+
+
 #define FCK (80000000)
 #define UART_OVERSAPLING16
 

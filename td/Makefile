@@ -9,7 +9,8 @@ CFLAGS := -nostdlib -Wall -Wextra -Werror \
 CPPFLAGS := -Imodules/ \
             -Iutils/ \
             -ICMSIS/Device/ST/STM32L4xx/Include \
-            -ICMSIS/Include
+            -ICMSIS/Include \
+            -Iapplications
 
 TARGET_ARCH := -mcpu=cortex-m4 -mthumb
 LDFLAGS := -T ld_ram.lds -nostdlib
@@ -22,7 +23,8 @@ SOURCES = main.c \
           modules/ledmatrix/matrix.c \
           utils/utils.c \
 		  modules/irq/irq.c \
-		  modules/buttons/buttons.c
+		  modules/buttons/buttons.c \
+          applications/uart_img/uart_img.c
 
 S_SOURCES = crt0.s
 O_SOURCES = modules/clocks/clocks.o
