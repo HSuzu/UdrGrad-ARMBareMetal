@@ -97,7 +97,7 @@ MAKE_DEFAULT_HANDLER(AES_IRQHandler);
 MAKE_DEFAULT_HANDLER(RNG_IRQHandler);
 MAKE_DEFAULT_HANDLER(FPU_IRQHandler);
 
-void *vector_table[] = {
+void *irq_vector_table[]  __attribute__ ((aligned (128))) = {
     // Stack and Reset Handler
     &_init_sp,            /* Top of stack */
     _start,             /* Reset handler */
@@ -202,3 +202,8 @@ void *vector_table[] = {
 	RNG_IRQHandler,          /* RNG global interrupt */
 	FPU_IRQHandler           /* Floating point interrupt */
 };
+
+
+void irq_init() {
+    SCB->VTOR = (uint32_t) irq_vector_table;
+}

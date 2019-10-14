@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <utils.h>
+#include <irq/irq.h>
 #include <clocks/clocks.h>
 #include <gpio/leds/led.h>
 #include <uart/uart.h>
@@ -10,6 +11,7 @@ extern const uint8_t _binary_image_raw_end;
 extern const uint8_t _binary_image_raw_size;
 
 int main() {
+	irq_init();
  	clocks_init();
     led_init();
 	uart_init();

@@ -1,7 +1,6 @@
 #ifndef LED_H
 #define LED_H
 
-#include <stm32l475xx.h>
 #include <stm32l4xx.h>
 
 typedef enum {
