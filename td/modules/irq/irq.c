@@ -97,7 +97,7 @@ MAKE_DEFAULT_HANDLER(AES_IRQHandler);
 MAKE_DEFAULT_HANDLER(RNG_IRQHandler);
 MAKE_DEFAULT_HANDLER(FPU_IRQHandler);
 
-void *irq_vector_table[]  __attribute__ ((aligned (128))) = {
+void *irq_vector_table[]  __attribute__ ((aligned (512))) = {
     // Stack and Reset Handler
     &_init_sp,            /* Top of stack */
     _start,             /* Reset handler */
