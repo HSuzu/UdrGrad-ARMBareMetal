@@ -29,7 +29,7 @@ SOURCES = main.c \
 S_SOURCES = crt0.s
 O_SOURCES = modules/clocks/clocks.o
 # Raw data sources
-R_SOURCES = 
+R_SOURCES =
 
 OBJ := $(subst .c,.o,$(SOURCES))
 S_OBJ := $(subst .s,.o,$(S_SOURCES))
@@ -50,7 +50,7 @@ startgdb:
 	$(GDB) $(EXE)
 
 starttio:
-	tio -b 115200 -d 8 -s 1 -p none /dev/ttyACM0
+	tio -b 38400 -d 8 -s 1 -p none /dev/ttyACM0
 
 clean:
 	rm -f $(EXE) $(OBJ) $(S_OBJ) $(R_OBJ) $(DEP)

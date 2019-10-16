@@ -3,6 +3,7 @@
 
 #include <stm32l4xx.h>
 #include <stdint.h>
+#include <utils.h>
 
 #include <gpio/leds/led.h>
 

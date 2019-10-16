@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <uart/uart.h>
+#include <gpio/leds/led.h>
 #include <ledmatrix/matrix.h>
 
 void uimg_init();

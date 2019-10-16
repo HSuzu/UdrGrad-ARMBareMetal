@@ -84,6 +84,7 @@ void USART1_IRQHandler() {
 	switch(err) {
 		default:
 		case ERR_DETECTED: {
+			led(LED_YELLOW);
 			/* Discart the information */
 			err = ERR_WAIT_FRAME;
 		} break;
@@ -95,6 +96,8 @@ void USART1_IRQHandler() {
 			}
 		} break;
 		case NO_ERR: {
+			led(LED_OFF);
+
 			if(rcv == 0xFF) {
 				resetPtn();
 			} else {

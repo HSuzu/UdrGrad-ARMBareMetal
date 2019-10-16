@@ -23,5 +23,7 @@ void button_init(void) {
 void EXTI15_10_IRQHandler() {
     EXTI->PR1 |= EXTI_PR1_PIF13;
 
-    ledBlink(LED_GREEN);
+    led(LED_YELLOW);
+	mswait(1000);
+	led(LED_OFF);
 }
