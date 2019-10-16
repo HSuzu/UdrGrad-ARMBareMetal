@@ -13,7 +13,6 @@ int main() {
 	uart_init(38400);
     matrix_init();
 	uimg_init();
-	button_init();
 
 	while (1) {
 		showPicture();
