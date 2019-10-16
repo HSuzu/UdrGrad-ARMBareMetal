@@ -97,6 +97,11 @@ MAKE_DEFAULT_HANDLER(AES_IRQHandler);
 MAKE_DEFAULT_HANDLER(RNG_IRQHandler);
 MAKE_DEFAULT_HANDLER(FPU_IRQHandler);
 
+/* See p. 232 of Cortex-M4 Generic User Guide
+ * [..] you must align the offset to the number of exception entries [..].
+ * The minimum alignment is 32 words (16 interrupts). For more interrupts,
+ * adjust the alignment by rounding up to the next power of two.
+ */
 void *irq_vector_table[]  __attribute__ ((aligned (512))) = {
     // Stack and Reset Handler
     &_init_sp,            /* Top of stack */

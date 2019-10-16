@@ -134,24 +134,3 @@ void uart_waitTransmission() {
 	/* Wait for the completion of the transmission */
 	while(!(USART1->ISR & USART_ISR_TC));
 }
-
-
-void USART1_IRQHandler() {
-	if(USART1->ISR & USART_ISR_ORE) {
-		/* Clear the ORE flag */
-		USART1->ICR |= USART_ICR_ORECF;
-	}
-
-	if(USART1->ISR & USART_ISR_FE) {
-		/* Clear the FE flag */
-		USART1->ICR |= USART_ICR_FECF;
-	}
-
-	uint8_t rcv = USART1->RDR;
-
-	if(rcv == 0xFF) {
-		resetPtn();
-	} else {
-		setNextLed(rcv);
-	}
-}
