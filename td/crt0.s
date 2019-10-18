@@ -3,12 +3,10 @@
 	.global _start
  	.thumb
 
-	.EXTERN	_init_sp[WEAK]
-
+    .thumb_func
 _start:
 	ldr sp, =_init_sp
-	mov r0, 0
-	bl	init_bss
+	bl	init_memory
 	bl	main
 
 _exit:

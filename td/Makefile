@@ -24,7 +24,8 @@ SOURCES = main.c \
           utils/utils.c \
 		  modules/irq/irq.c \
 		  modules/buttons/buttons.c \
-          applications/uart_img/uart_img.c
+          applications/uart_img/uart_img.c \
+          modules/clocks/clocks.c
 
 S_SOURCES = crt0.s
 O_SOURCES = modules/clocks/clocks.o
@@ -38,6 +39,9 @@ R_OBJ := $(subst .raw,.o,$(R_SOURCES))
 DEP := $(subst .c,.d,$(SOURCES))
 
 $(EXE): $(OBJ) $(S_OBJ) $(O_SOURCES) $(R_OBJ)
+
+# Ensure that clocks.c is compiled with -O1
+modules/clocks/clocks.o: CFLAGS += -O1
 
 $(R_OBJ) : $(R_SOURCES)
 	$(LD) -r -b binary $< -o $@
