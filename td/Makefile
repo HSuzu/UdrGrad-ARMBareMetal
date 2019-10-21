@@ -30,7 +30,7 @@ SOURCES = main.c \
 S_SOURCES = crt0.s
 O_SOURCES = modules/clocks/clocks.o
 # Raw data sources
-R_SOURCES =
+R_SOURCES = image.raw
 
 OBJ := $(subst .c,.o,$(SOURCES))
 S_OBJ := $(subst .s,.o,$(S_SOURCES))

@@ -97,14 +97,6 @@ void pulse_LAT() {
 
 void deactivate_rows() {
     C0(0); C1(0); C2(0); C3(0); C4(0); C5(0); C6(0); C7(0);
-
-	/* Write 0 to Bank 1 */
-	SB(1);
-    SDA(0);
-    for(int i = 0; i < B1_SIZE; i++) {
-        pulse_SCK();
-    }
-    pulse_LAT();
 }
 
 void activate_row(int row) {
@@ -150,8 +142,13 @@ void mat_set_row(int row, const rgb_color *val) {
 		send_byte(val[i].g, 1);
 		send_byte(val[i].r, 1);
 	}
-	pulse_LAT();
 
+    deactivate_rows();
+    for(int i = 0; i < 100; i++) {
+        asm volatile("nop");
+    }
+
+	pulse_LAT();
 	activate_row(row);
 }
 

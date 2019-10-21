@@ -7,6 +7,7 @@
 #include <ledmatrix/matrix.h>
 
 void uimg_init();
+void setDefaultPicture(rgb_color *pic);
 void setNextLed(uint8_t value);
 void showPicture();
 

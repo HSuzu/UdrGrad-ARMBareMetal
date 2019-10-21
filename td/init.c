@@ -35,6 +35,4 @@ void bootloader() {
 	while(vma < &_text_end) {
 		*(vma++) = *(lma++);
 	}
-
-	_start();
 }

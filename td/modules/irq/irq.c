@@ -2,7 +2,6 @@
 
 extern uint32_t _init_sp;
 void _start();
-void bootloader();
 
 // ARM internal exceptions
 MAKE_DEFAULT_HANDLER(NMI_Handler);
@@ -98,11 +97,10 @@ MAKE_DEFAULT_HANDLER(AES_IRQHandler);
 MAKE_DEFAULT_HANDLER(RNG_IRQHandler);
 MAKE_DEFAULT_HANDLER(FPU_IRQHandler);
 
-
 void *irq_vector_table_boot[]  __attribute__ ((section (".irq_table"))) = {
     // Stack and Reset Handler
     &_init_sp,            /* Top of stack */
-    bootloader           /* Reset handler */
+    _start           /* Reset handler */
 };
 
 /* See p. 232 of Cortex-M4 Generic User Guide

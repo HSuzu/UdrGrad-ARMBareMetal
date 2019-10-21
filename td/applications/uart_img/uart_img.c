@@ -103,3 +103,11 @@ void USART1_IRQHandler() {
 		} break;
 	}
 }
+
+void setDefaultPicture(rgb_color *pic) {
+    for(int i = 0; i < 64; i++) {
+        art[i].r = pic[i].r;
+        art[i].g = pic[i].g;
+        art[i].b = pic[i].b;
+    }
+}
