@@ -1,4 +1,6 @@
-#include <stm32l475xx.h>
+#ifndef MATRIX_H
+#define MATRIX_H
+
 #include <stm32l4xx.h>
 #include <utils.h>
 #include <stdint.h>
@@ -22,3 +24,5 @@ void mat_set_row(int row, const rgb_color *val);
 /* img is a vector of 64 pixels */
 void write_image(rgb_color *img, int ms_pxwait);
 void test_pixels();
+
+#endif // MATRIX_H

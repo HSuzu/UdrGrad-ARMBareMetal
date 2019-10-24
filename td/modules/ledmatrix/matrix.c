@@ -97,41 +97,33 @@ void pulse_LAT() {
 
 void deactivate_rows() {
     C0(0); C1(0); C2(0); C3(0); C4(0); C5(0); C6(0); C7(0);
-
-	/* Write 0 to Bank 1 */
-	SB(1);
-    SDA(0);
-    for(int i = 0; i < B1_SIZE; i++) {
-        pulse_SCK();
-    }
-    pulse_LAT();
 }
 
 void activate_row(int row) {
     switch (row) {
         case 0:
-            C0(1); C1(0); C2(0); C3(0); C4(0); C5(0); C6(0); C7(0);
+            ROW0(1);
         break;
         case 1:
-            C0(0); C1(1); C2(0); C3(0); C4(0); C5(0); C6(0); C7(0);
+            ROW1(1);
         break;
         case 2:
-            C0(0); C1(0); C2(1); C3(0); C4(0); C5(0); C6(0); C7(0);
+            ROW2(1);
         break;
         case 3:
-            C0(0); C1(0); C2(0); C3(1); C4(0); C5(0); C6(0); C7(0);
+            ROW3(1);
         break;
         case 4:
-            C0(0); C1(0); C2(0); C3(0); C4(1); C5(0); C6(0); C7(0);
+            ROW4(1);
         break;
         case 5:
-            C0(0); C1(0); C2(0); C3(0); C4(0); C5(1); C6(0); C7(0);
+            ROW5(1);
         break;
         case 6:
-            C0(0); C1(0); C2(0); C3(0); C4(0); C5(0); C6(1); C7(0);
+            ROW6(1);
         break;
         case 7:
-            C0(0); C1(0); C2(0); C3(0); C4(0); C5(0); C6(0); C7(1);
+            ROW7(1);
         break;
     }
 }
@@ -139,7 +131,7 @@ void activate_row(int row) {
 void send_byte(uint8_t val, int bank) {
 	SB(bank);
 	for(int i = 7; i >= 0; i--) {
-		SDA((val & (1 << i)) >> i);
+		SDA((val & (1 << i)));
         pulse_SCK();
     }
 }
@@ -150,8 +142,13 @@ void mat_set_row(int row, const rgb_color *val) {
 		send_byte(val[i].g, 1);
 		send_byte(val[i].r, 1);
 	}
-	pulse_LAT();
 
+    deactivate_rows();
+    for(int i = 0; i < 100; i++) {
+        asm volatile("nop");
+    }
+
+	pulse_LAT();
 	activate_row(row);
 }
 

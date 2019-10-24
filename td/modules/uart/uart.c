@@ -1,5 +1,4 @@
 #include "uart.h"
-#include <gpio/leds/led.h>
 
 
 /** STLINK UART1 TX: PB06
@@ -7,9 +6,9 @@
  **/
 
 
-void uart_init() {
+void uart_init(int baudrate) {
 	/* Disable USART */
-	// USART1->CR1 &= ~(USART_CR1_UE);
+	USART1->CR1 &= ~(USART_CR1_UE);
 
 	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
 
@@ -30,9 +29,9 @@ void uart_init() {
 
 	/* IMPORTANT: It must have 2 cycles before changing any register of USART1 */
 
-	/* Configure baud rate to 115200 (oversample = 16) */
+	/* Configure baud rate to baudrate (oversample = 16) */
 	#ifdef UART_OVERSAPLING16
-		uint32_t USARTDIV = FCK/UART_BAUD_RATE;
+		uint32_t USARTDIV = FCK/baudrate;
 		uint32_t brr = USARTDIV;
 	#else
 		uint32_t USARTDIV = 2*FCK/UART_BAUD_RATE;
@@ -50,14 +49,16 @@ void uart_init() {
 	/* Configure UART to handle words of 8 bits (M = 0),
 	 * 16 oversample (OVER8 = 0), no parity (PCE = 0)
 	 * and 1 stop bit (STOP = 0) */
-	USART1->CR1 = USART1->CR1 & ~(USART_CR1_M1 | USART_CR1_M0);
-	USART1->CR1 = USART1->CR1 & ~USART_CR1_OVER8;
-	USART1->CR1 = USART1->CR1 & ~USART_CR1_PCE;
-	USART1->CR2 = USART1->CR2 & ~USART_CR2_STOP;
+	USART1->CR1 = 0;
+	USART1->CR2 = 0;
 
 	/* Enable transmitter and receiver */
 	USART1->CR1 = USART1->CR1 | USART_CR1_UE;
 	USART1->CR1 = USART1->CR1 | USART_CR1_TE | USART_CR1_RE;
+
+	/* Enable Interruption on RX */
+	USART1->CR1 |= USART_CR1_RXNEIE;
+	NVIC_EnableIRQ(37);
 }
 
 void uart_putchar(uint8_t c) {
@@ -84,14 +85,14 @@ void uart_puts(const uint8_t *s) {
 
 	uart_putchar('\n');
 	/* Carriage return */
-	uart_putchar(0xd);
+	uart_putchar('\r');
 }
 
 void uart_gets(uint8_t *s, size_t size) {
 	uint8_t c = uart_getchar();
 	size_t i = 0;
 
-	while (c != '\n' && c != 0xd && i < size-1) {
+	while (c != '\n' && c != '\r' && i < size-1) {
 		s[i] = c;
 
 		i++;
@@ -106,6 +107,7 @@ void uart_putn(const uint8_t *s, size_t n) {
 	size_t i = 0;
 	while(i < n && s[i] != '\0') {
 		uart_putchar(s[i]);
+		i++;
 	}
 
 	uart_putchar('\n');
@@ -126,7 +128,7 @@ void uart_hex(uint32_t n) {
 
 	uart_putchar('\n');
 	/* Carriage return */
-	uart_putchar(0xd);
+	uart_putchar('\r');
 }
 
 void uart_waitTransmission() {

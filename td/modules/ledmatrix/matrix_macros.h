@@ -1,3 +1,6 @@
+#ifndef MATRIX_MACROS_H
+#define MATRIX_MACROS_H
+
 #include <stm32l475xx.h>
 #include <stm32l4xx.h>
 
@@ -34,3 +37,15 @@
 #define C5(x)  do { ((x)? (GPIOA->BSRR = GPIO_BSRR_BS_5) : (GPIOA->BSRR = GPIO_BSRR_BR_5));   } while (0);
 #define C6(x)  do { ((x)? (GPIOB->BSRR = GPIO_BSRR_BS_0) : (GPIOB->BSRR = GPIO_BSRR_BR_0));   } while (0);
 #define C7(x)  do { ((x)? (GPIOA->BSRR = GPIO_BSRR_BS_3) : (GPIOA->BSRR = GPIO_BSRR_BR_3));   } while (0);
+
+#define ROWN  do { C0(0); C1(0); C2(0); C3(0); C4(0); C5(0); C6(0); C7(0); } while(0);
+#define ROW0(x) do { if(x){ C0(1); C1(0); C2(0); C3(0); C4(0); C5(0); C6(0); C7(0);}else{ ROWN;} } while(0);
+#define ROW1(x) do { if(x){ C0(0); C1(1); C2(0); C3(0); C4(0); C5(0); C6(0); C7(0);}else{ ROWN;} } while(0);
+#define ROW2(x) do { if(x){ C0(0); C1(0); C2(1); C3(0); C4(0); C5(0); C6(0); C7(0);}else{ ROWN;} } while(0);
+#define ROW3(x) do { if(x){ C0(0); C1(0); C2(0); C3(1); C4(0); C5(0); C6(0); C7(0);}else{ ROWN;} } while(0);
+#define ROW4(x) do { if(x){ C0(0); C1(0); C2(0); C3(0); C4(4); C5(0); C6(0); C7(0);}else{ ROWN;} } while(0);
+#define ROW5(x) do { if(x){ C0(0); C1(0); C2(0); C3(0); C4(0); C5(5); C6(0); C7(0);}else{ ROWN;} } while(0);
+#define ROW6(x) do { if(x){ C0(0); C1(0); C2(0); C3(0); C4(0); C5(0); C6(6); C7(0);}else{ ROWN;} } while(0);
+#define ROW7(x) do { if(x){ C0(0); C1(0); C2(0); C3(0); C4(0); C5(0); C6(0); C7(1);}else{ ROWN;} } while(0);
+
+#endif // MATRIX_MACROS_H

@@ -1,2 +1,5 @@
 main
 hello
+.fuse_hidden*
+*.bin
+.vscode/
