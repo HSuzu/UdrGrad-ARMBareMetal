@@ -17,6 +17,7 @@ int main() {
 	uart_init(38400);
     matrix_init();
 	uimg_init();
+	button_init();
 
 	uint8_t size = _binary_image_raw_size;
 	const uint8_t *img = & _binary_image_raw_start;
